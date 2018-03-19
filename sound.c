@@ -37,4 +37,7 @@ void dispWAVHeader(char filename[]){
 	printf("  byteRate: %d\n",mh.byteRate);
 	printf("  blockAlign: %d\n",mh.blockAlign);
 	printf("  bitsPerSample: %d\n",mh.bitsPerSample);
+	printf("  subchunk 2 ID: ");
+	printID(mh.subchunk2ID);
+	printf("  subchunk 2 size: %d\n",mh.subchunk2Size);
 }
