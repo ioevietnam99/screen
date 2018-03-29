@@ -1,3 +1,4 @@
+#include "screen.h"
 #include "sound.h"
 #include<stdio.h>
 #include<math.h>
@@ -26,12 +27,17 @@ void dispWAVData(char filename[]){
 	fread(&mh, sizeof(mh), 1, fp);		//skip over the header of wave file
 	fread(samples, sizeof(short), SAMPLERATE,fp);
 	fclose(fp);
+	clearScreen();
 	for(i=0; i<80; i++){
 		for(j=0, sum=0.0; j<SAMPLERATE/80; ++j){
 			sum += samples[j+i*200]*samples[j+i*200];
 		}
 		rms[i]= sqrt(sum/200);
-		printf("rms[%d]: %10.4f\n",i,rms[i]);
+#ifdef DEBUG
+		printf("rms[%d]: %10.4f, dB= %10.4f\n",i,rms[i], 20*log10(rms[i]));
+#else
+		dispBar(i, 20*log10(rms[i]));		//display dB value 
+#endif
 	}
 }
 
