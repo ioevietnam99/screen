@@ -36,9 +36,12 @@ void dispWAVData(char filename[]){
 #ifdef DEBUG
 		printf("rms[%d]: %10.4f, dB= %10.4f\n",i,rms[i], 20*log10(rms[i]));
 #else
-		dispBar(i, 20*log10(rms[i]));		//display dB value 
+		dispBar(i, 20*log10(rms[i]));		//display dB value
 #endif
-	}
+	}	//end of for(i)
+#ifdef COM
+	sendToServer(rms);
+#endif
 }
 
 //function definition of dispWAVHeader()
